@@ -61,17 +61,17 @@ if submit_button:
     with st.spinner('Translating. Wait for result...'):
         final_prompt = ChatPromptTemplate.from_messages([
             ("system", "You are a helpful assistant that translates English to {option}, Only translate the text input, don't add any explanation of your own.do not produce any other text, you will make the most accurate and authentic to the source translation possible."),
-            few_shot_prompt,
             ("human", "{input}"),
             ])
         
         result = srtFileProcess(StringIO(user_input.getvalue().decode("utf-8")))
         # result_test=[]
         result_ln =srtFileProcess(StringIO(user_input.getvalue().decode("utf-8")))
-    
+
         for i in range(0, len(result)):
             chain = final_prompt | chat
             res = chain.invoke({"input": result[i].content, "option":option}).content
+            #st.write(res)
             f_con = result[i].content + '\n' + res
             result[i].content = f_con
             result_ln[i].content = res
