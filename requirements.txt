@@ -2,3 +2,4 @@ streamlit
 srt
 langchain
 langchain-openai
+python-dotenv
