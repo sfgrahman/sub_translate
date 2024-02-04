@@ -13,7 +13,7 @@ import base64
 
 from dotenv import load_dotenv
 load_dotenv(override=True)
-DIR = "tempDir/"
+# DIR = "tempDir/"
 def srtFileProcess(fileData):
     subs = list(srt.parse(fileData))
     return subs
@@ -50,7 +50,7 @@ st.title("Subtitle translator")
 
 user_input = st.file_uploader("Upload srt file here", type=(["srt"]))
 user_input_con = st.file_uploader("Upload continuous file here", type=(["txt"]))
-#st.write(user_input.name)
+# st.write(user_input.name)
 option = st.selectbox(
     'Select your language',
     ('Chinese', 'Turkish', 'Japanese','Vietnamese','German','French','Spanish','Portuguese', 'Traditional Chinese'))
@@ -66,7 +66,7 @@ if submit_button:
             ])
         
         result = srtFileProcess(StringIO(user_input.getvalue().decode("utf-8")))
-        #result_test=[]
+        # result_test=[]
         result_ln =srtFileProcess(StringIO(user_input.getvalue().decode("utf-8")))
     
         for i in range(0, len(result)):
@@ -75,26 +75,26 @@ if submit_button:
             f_con = result[i].content + '\n' + res
             result[i].content = f_con
             result_ln[i].content = res
-            #result_test.append(res)
+            # result_test.append(res)
         
         output = srt.compose(result)
         file_both = get_translated_filename(user_input.name, option)
-        #with open(f"{DIR}{file_both}","w", encoding="utf-8") as handle:
-            #handle.write(output) 
+        # with open(f"{DIR}{file_both}","w", encoding="utf-8") as handle:
+        #     handle.write(output) 
             
-        #with open(f"{DIR}{file_both}","r", encoding="utf-8") as handle:
-            #data = handle.read()    
+        # with open(f"{DIR}{file_both}","r", encoding="utf-8") as handle:
+            # data = handle.read()    
         b64 = base64.b64encode(output.encode()).decode() 
         final_url = f'<a href="data:file/text;base64,{b64}" download="{file_both}">Download Translated file with both </a>'
         st.markdown(final_url, unsafe_allow_html=True)
         
         output_ln = srt.compose(result_ln)
         file_tn = get_translated_filename(user_input.name, option, "only")
-        #with open(f"{DIR}{file_tn}","w", encoding="utf-8") as handle:
-            #handle.write(output_ln) 
+        # with open(f"{DIR}{file_tn}","w", encoding="utf-8") as handle:
+            # handle.write(output_ln) 
             
-        #with open(f"{DIR}{file_tn}","r", encoding="utf-8") as handle:
-            #data = handle.read()    
+        # with open(f"{DIR}{file_tn}","r", encoding="utf-8") as handle:
+            # data = handle.read()    
         b64 = base64.b64encode(output_ln.encode()).decode() 
         final_url_ln = f'<a href="data:file/text;base64,{b64}" download="{file_tn}"> Download Translated file only</a>'
         st.markdown(final_url_ln, unsafe_allow_html=True)
