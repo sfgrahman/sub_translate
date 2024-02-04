@@ -79,23 +79,23 @@ if submit_button:
         
         output = srt.compose(result)
         file_both = get_translated_filename(user_input.name, option)
-        with open(f"{DIR}{file_both}","w", encoding="utf-8") as handle:
-            handle.write(output) 
+        #with open(f"{DIR}{file_both}","w", encoding="utf-8") as handle:
+            #handle.write(output) 
             
-        with open(f"{DIR}{file_both}","r", encoding="utf-8") as handle:
-            data = handle.read()    
-        b64 = base64.b64encode(data.encode()).decode() 
+        #with open(f"{DIR}{file_both}","r", encoding="utf-8") as handle:
+            #data = handle.read()    
+        b64 = base64.b64encode(output.encode()).decode() 
         final_url = f'<a href="data:file/text;base64,{b64}" download="{file_both}">Download Translated file with both </a>'
         st.markdown(final_url, unsafe_allow_html=True)
         
         output_ln = srt.compose(result_ln)
         file_tn = get_translated_filename(user_input.name, option, "only")
-        with open(f"{DIR}{file_tn}","w", encoding="utf-8") as handle:
-            handle.write(output_ln) 
+        #with open(f"{DIR}{file_tn}","w", encoding="utf-8") as handle:
+            #handle.write(output_ln) 
             
-        with open(f"{DIR}{file_tn}","r", encoding="utf-8") as handle:
-            data = handle.read()    
-        b64 = base64.b64encode(data.encode()).decode() 
+        #with open(f"{DIR}{file_tn}","r", encoding="utf-8") as handle:
+            #data = handle.read()    
+        b64 = base64.b64encode(output_ln.encode()).decode() 
         final_url_ln = f'<a href="data:file/text;base64,{b64}" download="{file_tn}"> Download Translated file only</a>'
         st.markdown(final_url_ln, unsafe_allow_html=True)
         output_show = output.replace("\n","<br>")
